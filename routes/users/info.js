@@ -29,9 +29,13 @@ router.post('/', checkToken, (req, res, next) => {
             console.log("shit")
         }
         else {
-            const user = jwtdecode(req.token);
+            let user = ""
+            if (!req.body.requested)
+                user = jwtdecode(req.token);
+            else
+                user = { name: req.body.requested };
             console.log(user.name)
-            User.findOne({ name: user.name }).then((usr) => { console.log(usr); res.json(usr) }).catch();
+            User.findOne({ name: user.name }).then((usr) => { console.log("boobies"); console.log(usr); res.json(usr) }).catch();
         }
     });
 })
